@@ -5,6 +5,14 @@ import pygame
 import sys 
 import config
 
+pygame.init()
+
+width, height = 600,600
+screen = pygame.display.set_mode((width,height))
+pygame.display.set_caption("Move Text With Arrow Keys")
+
+font = pygame.font.Font(None, 50)
+
 def draw_text(screen,text, x,y,font_size, color, font_name=None, bold=False, italic=False):
     if font_name:
         font = pygame.font.Font(font_name, font_size)
@@ -15,7 +23,7 @@ def draw_text(screen,text, x,y,font_size, color, font_name=None, bold=False, ita
     text_surface = font.render(text, True, color)
     screen.blit(text_surface, (x,y)) 
 
-    def init_game():
+def init_game():
         pygame.init()
         pygame.font.init()
         screen = pygame.display.set_mode((config.WINDOW_WIDTH, config.WINDOW_HEIGHT))
@@ -23,7 +31,7 @@ def draw_text(screen,text, x,y,font_size, color, font_name=None, bold=False, ita
 
         return screen 
     
-    def handle_events():
+def handle_events():
         for event in pygame.event.get():
             if event.type == pygame.Quit:
                 return False 
@@ -49,7 +57,7 @@ def handle_events(x1, y1):
         
         return x1, y1, True
     
-    def main():
+def main():
         screen = init_game()
         clock = pygame.time.Clock()
 
@@ -61,7 +69,7 @@ def handle_events(x1, y1):
 
         running = True
         while running:
-            x1, y1, running = handle_events(x1, y1)
+            running = handle_events(x1, y1)
             screen.fill(config.PURPLE)
 
             draw_text(screen, text1, x1, y1, font_size1, color1)
@@ -72,5 +80,5 @@ def handle_events(x1, y1):
         pygame.quit()
         sys.exit()
 
-    if __name__ == "__main__":
+if __name__ == "__main__":
         main()
